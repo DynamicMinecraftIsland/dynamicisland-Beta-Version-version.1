@@ -125,7 +125,7 @@ public final class IslandHud {
 	public static synchronized void tick(Minecraft mc) {
 		if (pendingSettings) {
 			pendingSettings = false;
-			mc.setScreen(new SettingsScreen(mc.screen));
+			mc.gui.setScreen(new SettingsScreen(mc.gui.screen()));
 		}
 	}
 
@@ -299,7 +299,7 @@ public final class IslandHud {
 		int sw = mc.getWindow().getGuiScaledWidth();
 		int sh = mc.getWindow().getGuiScaledHeight();
 
-		boolean editing = mc.screen instanceof ChatScreen;
+		boolean editing = mc.gui.screen() instanceof ChatScreen;
 		if (editing) {
 			handleEdit(mc, sw, sh, iw, ih);
 		} else if (dragMode != 0) {
@@ -1263,6 +1263,6 @@ class SettingsScreen extends Screen {
 	@Override
 	public void onClose() {
 		Cfg.save();
-		this.minecraft.setScreen(this.parent);
+		this.minecraft.gui.setScreen(this.parent);
 	}
 }
